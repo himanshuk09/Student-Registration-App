@@ -1,0 +1,17 @@
+//   console.log(e.target.value);
+    //   const rawResponse = await fetch("http://localhost:4100/student", {
+    //     method: "GET",
+    //     headers: {
+    //       Accept: "application/json",
+    //       "Content-Type": "application/json",
+    //     },
+        // body: JSON.stringify(user),
+    //   });
+    //   const content = await rawResponse.json();
+    // console.log(content);
+    //   const  data = await axios.post('http://localhost:4100/student',user, {
+    //     headers: {
+    //       'Content-Type': 'multipart/form-data'
+    //     }
+    //   }
+    // )
