@@ -1,14 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import axios from "axios";
-export default function RegForm() {
+import ShimmerUI from "./ShimmerUI";
+import { useParams } from "react-router-dom";
+import { Link } from "react-router-dom";
+export default function EditDetails() {
+  const { _id } = useParams();
+
+  const [usersdata, setUsersData] = useState([]);
+  useEffect(() => {
+    fetchApi();
+  }, []);
+
+  const fetchApi = async () => {
+    const getData = await axios.get(`http://localhost:4100/student/${_id}`);
+    setUsersData(getData.data.existingStudent);
+  };
   const [user, setUser] = useState({
-    name: "",
-    username: "",
-    email: "",
-    phoneno: "",
-    password: "",
-    confirmPassword: "",
-    gender:""
+    name: usersdata.name,
+    username: usersdata.username,
+    email: usersdata.email,
+    phoneno: usersdata.phoneno,
+    password: usersdata.password,
+    confirmPassword: usersdata.confirmPassword,
+    gender: "",
   });
 
   const handleChange = (e) => {
@@ -18,14 +32,21 @@ export default function RegForm() {
 
   const submitData = async (e) => {
     e.preventDefault();
-    // Send the form data to NestJS using Axios
-    const postApi= await axios
-      .post("http://localhost:4100/student", user)
-      alert(postApi.data.message)
+
+    const postApi = await axios.put(
+      `http://localhost:4100/student/${_id}`,
+      user
+    );
+    alert(postApi.data.message)
   };
-  return (
+
+
+
+  return usersdata.length === 0 ? (
+    <ShimmerUI />
+  ) : (
     <div class="container">
-      <div class="title">SignUp</div>
+      <div class="title">Update Details</div>
       <form onSubmit={submitData}>
         <div class="user__details">
           <div class="input__box">
@@ -35,6 +56,7 @@ export default function RegForm() {
               placeholder="E.g: John Smith"
               name="name"
               required
+              defaultValue={usersdata.name}
               value={user.name}
               onChange={handleChange}
             />
@@ -46,6 +68,7 @@ export default function RegForm() {
               placeholder="johnWC98"
               name="username"
               required
+              defaultValue={usersdata.username}
               value={user.username}
               onChange={handleChange}
             />
@@ -57,6 +80,7 @@ export default function RegForm() {
               name="email"
               placeholder="johnsmith@hotmail.com"
               required
+              defaultValue={usersdata.email}
               value={user.email}
               onChange={handleChange}
             />
@@ -69,6 +93,7 @@ export default function RegForm() {
               placeholder="012-345-6789"
               required
               name="phoneno"
+              defaultValue={usersdata.phoneno}
               value={user.phoneno}
               onChange={handleChange}
             />
@@ -80,6 +105,7 @@ export default function RegForm() {
               placeholder="********"
               name="password"
               required
+              defaultValue={usersdata.password}
               value={user.password}
               onChange={handleChange}
             />
@@ -90,46 +116,18 @@ export default function RegForm() {
               type="password"
               placeholder="********"
               name="confirmPassword"
+              defaultValue={usersdata.confirmPassword}
               value={user.confirmPassword}
               onChange={handleChange}
             />
           </div>
         </div>
-       { /*<div>
-        <span class="details">Gender:</span>
-        <select name="gender" value={user.gender} onChange={handleChange}>
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
-  </div>*/}
-        {/*<div class="gender__details">
-          <input type="radio" name="gender" id="dot-1" value={user.gender}
-          onChange={handleChange} checked />
-          <input type="radio" name="gender" id="dot-2" value={user.gender}
-          onChange={handleChange}/>
-          <input type="radio" name="gender" id="dot-3" value={user.gender}
-          onChange={handleChange}/>
-          <span class="gender__title">Gender</span>
-          <div class="category">
-            <label for="dot-1">
-              <span class="dot one"></span>
-              <span>Male</span>
-            </label>
-            <label for="dot-2">
-              <span class="dot two"></span>
-              <span>Female</span>
-            </label>
-            <label for="dot-3">
-              <span class="dot three"></span>
-              <span>Prefer not to say</span>
-            </label>
-          </div>
-  </div>*/}
         <div class="button">
-          <input type="submit" value="SignUp" />
+          <input type="submit" value="Update" />
         </div>
+        <Link to="/getUser"><div class="button">
+          <input type="button" value="Back" />
+        </div></Link>
       </form>
     </div>
   );

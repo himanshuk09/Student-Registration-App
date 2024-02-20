@@ -3,11 +3,22 @@ import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 export class Student {
   @Prop()
   name: string;
+  // @Prop()
+  // class: string;
+  // @Prop()
+  // gender: string;
+  // @Prop()
+  // marks: string;
   @Prop()
-  class: string;
+  username: string;
   @Prop()
-  gender: string;
+  email: string;
   @Prop()
-  marks: string;
+  phoneno: string;
+  @Prop()
+  password: string;
+  @Prop()
+  confirmPassword: string;
 }
+
 export const StudentSchema = SchemaFactory.createForClass(Student);

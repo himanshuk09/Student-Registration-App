@@ -1,12 +1,12 @@
 
 import './App.css';
-import Form from './components/Form';
-import RegForm from "./components/RegForm";
+import NavBar from './components/NavBar';
+import {Outlet} from 'react-router-dom'
 function App() {
   return (
     <div className="App">
-     <Form/>
-     <RegForm/>
+     <NavBar/>
+     <Outlet/>
     </div>
   );
 }

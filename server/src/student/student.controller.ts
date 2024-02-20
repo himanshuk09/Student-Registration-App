@@ -12,6 +12,7 @@ import {
 import { CreateStudentDto } from 'src/dto/create-student.dto';
 import { UpdateStudentDto } from 'src/dto/update-student.dto';
 import { StudentService } from './student.service';
+import { StudentDto } from 'src/dto/login.student.dto';
 @Controller('student')
 export class StudentController {
   constructor(private readonly studentService: StudentService) {}
@@ -36,6 +37,29 @@ export class StudentController {
       });
     }
   }
+  
+  // async login(@Res() response,@Body() loginUserDto: StudentDto) {
+  //   // login user
+  //   try {
+  //     const newStudent = await this.studentService.login(
+  //       StudentDto,
+  //     );
+  //     return response.status(HttpStatus.CREATED).json({
+  //       message: 'Student has been created successfully',
+  //       newStudent,
+  //     });
+  //   } catch (err) {
+  //     return response.status(HttpStatus.BAD_REQUEST).json({
+  //       statusCode: 400,
+  //       message: 'Error: Student not created!',
+  //       error: 'Bad Request',
+  //     });
+  //   }
+  // }
+   
+
+
+
   @Put('/:id')
   async updateStudent(
     @Res() response,

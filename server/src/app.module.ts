@@ -5,10 +5,14 @@ import { AppService } from './app.service';
 import { StudentSchema } from './schema/student.schema';
 import { StudentService } from './student/student.service';
 import { StudentController } from './student/student.controller';
-
+import { ConfigModule } from '@nestjs/config';
 @Module({
   imports: [
-    MongooseModule.forRoot('mongodb://127.0.0.1:27017', {
+    ConfigModule.forRoot({
+      envFilePath:`.env.${process.env.NODE_ENV}`,
+      isGlobal:true,
+    }),
+    MongooseModule.forRoot(process.env.DB_URL_LOCAL, {
       dbName: 'studentdb',
     }),
     MongooseModule.forFeature([{ name: 'Student', schema: StudentSchema }]),
@@ -16,4 +20,4 @@ import { StudentController } from './student/student.controller';
   controllers: [AppController, StudentController],
   providers: [AppService, StudentService],
 })
-export class AppModule {}
+export class AppModule {};

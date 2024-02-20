@@ -3,16 +3,21 @@ export class CreateStudentDto {
   
   @IsString()
   @MaxLength(30)
-  @IsNotEmpty()
   readonly name: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // readonly class: string;
+  // @IsString()
+  // @MaxLength(30)
+  // @IsNotEmpty()
+  // readonly gender: string;
+  // @IsString()
+  // @IsNotEmpty()
+  // readonly marks: string;
   @IsString()
-  @IsNotEmpty()
-  readonly class: string;
-  @IsString()
-  @MaxLength(30)
-  @IsNotEmpty()
-  readonly gender: string;
-  @IsString()
-  @IsNotEmpty()
-  readonly marks: string;
+  readonly username:string;
+  readonly email:string;
+  readonly phoneno:string;
+  readonly password:string;
+  readonly confirmPassword:string;
 }
